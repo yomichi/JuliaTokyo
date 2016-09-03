@@ -1,0 +1,102 @@
+\documentclass[dvipdfmx]{beamer}
+\usepackage{mytheme}
+\setbeamercovered{transparent=0}
+
+\input{header_listing.tex}
+\newcommand{\textblue}[1]{\textcolor{blue}{#1}}
+
+\title{Julia デバッガ ``Gallium.jl'' の紹介}
+\author{yomichi}
+\date{JuliaTokyo \#6 2015/04/25}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+    スライドとサンプルコード \\ 
+    https://github.com/yomichi/JuliaTokyo
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{自己紹介}
+\begin{columns}
+    \begin{column}{.8\linewidth}
+        \begin{itemize}
+            \item HN : 夜道, yomichi
+            \item twitter : \verb|@yomichi_137|
+            \item ぽすどくさんねんせい
+            \begin{itemize}
+                \item 統計物理学・計算物理学
+                \begin{itemize}
+                    \item 主にモンテカルロ法とか
+                    \item 言語はC++, Python, \textblue{Julia}
+                \end{itemize}
+            \end{itemize}
+            \item イベント（勉強会）実況勢
+            \begin{itemize}
+                \item 最近だと全ゲ連（同人ゲーム開発）とか、PyConJP (Python) とか、\textblue{JuliaTokyo}とか
+            \end{itemize}
+            \item Julia の開発環境は REPL と Vim
+            \item コミケでJulia 本出したりしてます
+            \begin{itemize}
+                \item 去年の冬に v0.4 入門本を、今年の夏は v0.5 新機能本を出していました
+                \item http://yomichi.hateblo.jp/entry/2016/08/11/120654 からDL 可能
+            \end{itemize}
+        \end{itemize}
+    \end{column}
+    \begin{column}{.3\linewidth}
+        \includegraphics[width=\linewidth]{sakuremi.jpg}
+
+        (thanks \verb|@am_11|)
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+    \frametitle{デバッグツール}
+    \begin{itemize}
+        \item \verb|@show|
+        \begin{itemize}
+            \item Julia に標準で含まれるマクロ（神）
+            \item 変数や式を渡すと、渡したものと、その評価結果との組を標準出力に書き出す
+            \begin{lstlisting}
+julia> @show sin(pi)
+sin(pi) = 1.2246467991473532e-16
+1.2246467991473532e-16
+            \end{lstlisting}
+            \item 自分で書くコードのデバッグはほとんどこれで十分
+            \item 他人が書いたもの、特にJulia 本体の動作を探るには、ちょっと面倒くさい
+            \begin{itemize}
+                \item とくに Julia 本体の場合は再コンパイルが必要
+            \end{itemize}
+        \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+    \frametitle{デバッグツール}
+    \begin{itemize}
+        \item \verb|Gallium.jl|
+        \begin{itemize}
+            \item Julia のJulia によるJulia のためのデバッガ
+            \item Julia v0.5 から使える
+            \item つくったひと： Keno Fischer (Cxx.jl とかの作者)
+            \item マクロを使ってJulia の構文木を直接触ることでデバッガとしての機能を実現
+            \begin{itemize}
+                \item ステップ実行、変数の値を表示、ブレークポイントの設定、...
+            \end{itemize}
+            \item ソースコードをいじらずにデバッグ実行できるので手軽
+            \item 標準ライブラリや外部パッケージのコードレビューが捗る
+            \item Juno というJulia IDE (Atom base) とも連携できるらしいですよ
+        \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{}
+    とりあえずつかってみればいいんじゃないかな（デモするよ、の意）
+
+    公開する資料では簡単なコマンド一覧とかを追加する（はず）
+\end{frame}
+
+\end{document}
